@@ -1,51 +1,49 @@
-'use strict';
-
 angular.module('featureToggleFrontend').factory('authorisationService', ['ENV', '$http', function (ENV, $http) {
-    var exports = {};
+  const exports = {};
 
-    exports.getUsers = function (applicationName, success, error) {
-        var path = '/api/applications/' + applicationName + '/users';
-        $http.get(path)
-            .success(function (data) {
-                success(data);
-            })
-            .error(function (data) {
-                error(data);
-            });
-    };
+  exports.getUsers = (applicationName, success, error) => {
+    const path = `/api/applications/${applicationName}/users`;
+    $http.get(path)
+      .success((data) => {
+        success(data);
+      })
+      .error((data) => {
+        error(data);
+      });
+  };
 
-    exports.grant = function (applicationName, userEmail, success, error) {
-        var path = '/api/applications/' + applicationName + '/users';
-        $http.post(path, {userEmail: userEmail})
-            .success(function (data) {
-                success(data);
-            })
-            .error(function (data) {
-                error(data);
-            });
-    };
+  exports.grant = (applicationName, userEmail, success, error) => {
+    const path = `/api/applications/${applicationName}/users`;
+    $http.post(path, { userEmail })
+      .success((data) => {
+        success(data);
+      })
+      .error((data) => {
+        error(data);
+      });
+  };
 
-    exports.revoke = function (applicationName, userEmail, success, error) {
-        var path = '/api/applications/' + applicationName + '/users/' + userEmail;
-        $http.delete(path)
-            .success(function () {
-                success();
-            })
-            .error(function (data) {
-                error(data);
-            });
-    };
+  exports.revoke = (applicationName, userEmail, success, error) => {
+    const path = `/api/applications/${applicationName}/users/${userEmail}`;
+    $http.delete(path)
+      .success(() => {
+        success();
+      })
+      .error((data) => {
+        error(data);
+      });
+  };
 
-    exports.isUserAuthorised = function (applicationName, userEmail, callback) {
-        var path = '/api/applications/' + applicationName + '/users/' + userEmail;
-        $http.get(path)
-            .success(function (data) {
-                callback(null, data.authorised);
-            })
-            .error(function (data) {
-                callback(new Error(data));
-            });
-    };
+  exports.isUserAuthorised = (applicationName, userEmail, callback) => {
+    const path = `/api/applications/${applicationName}/users/${userEmail}`;
+    $http.get(path)
+      .success((data) => {
+        callback(null, data.authorised);
+      })
+      .error((data) => {
+        callback(new Error(data));
+      });
+  };
 
-    return exports;
+  return exports;
 }]);

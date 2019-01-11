@@ -1,9 +1,7 @@
-'use strict';
+exports.toggleslider = (toggleState) => {
+  if (toggleState === true) {
+    return 'checked="checked"';
+  }
 
-exports.toggleslider = function (toggleState) {
-    if (toggleState === true) {
-        return 'checked="checked"';
-    }
-
-    return '';
+  return '';
 };

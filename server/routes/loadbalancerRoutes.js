@@ -1,14 +1,13 @@
-'use strict';
+const fs = require('fs');
+const config = require('config');
 
-var fs = require('fs');
-
-exports.lbstatus = function (req, res) {
-    fs.readFile('/etc/lbstatus/hobknob', 'utf8', function (err, data) {
-        if (err) {
-            res.send(500, err);
-        }
-        else {
-            res.send(data);
-        }
-    });
+exports.lbstatus = (req, res) => {
+  const filePath = config.loadBalancerFile;
+  fs.readFile(filePath, 'utf8', (err, data) => {
+    if (err) {
+      res.send(500, err);
+    } else {
+      res.send(data);
+    }
+  });
 };

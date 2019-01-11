@@ -1,7 +1,5 @@
-'use strict';
-
-module.exports = function (app) {
-    app.get('/example-plugin', function (req, res) {
-        res.send(200);
-    });
+module.exports = (app) => {
+  app.get('/example-plugin', (req, res) => {
+    res.send(200);
+  });
 };

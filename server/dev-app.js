@@ -1,17 +1,15 @@
-'use strict';
+const forever = require('forever-monitor'); // eslint-disable-line import/no-extraneous-dependencies
 
-var forever = require('forever-monitor');
-
-var child = new (forever.Monitor)('server/app.js', {
-    max: -1,
-    silent: false,
-    options: [],
-    watch: true,
-    watchDirectory: './'
+const child = new (forever.Monitor)('server/app.js', {
+  max: -1,
+  silent: false,
+  options: [],
+  watch: true,
+  watchDirectory: './',
 });
 
-child.on('exit', function () {
-    console.log('app.js has exited');
+child.on('exit', () => {
+  console.log('app.js has exited');
 });
 
 child.start();

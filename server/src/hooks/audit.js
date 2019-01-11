@@ -1,16 +1,14 @@
-'use strict';
-
-var audit = require('../../audit');
+const audit = require('../../domain/audit');
 
 module.exports = {
   /*
-  {
-    user: { name: 'anonymous' },
-    applicationName: 'my-app',
-    featureName: 'my-feature',
-  }
-  */
-  addFeature: function (featureEvent, next) {
+   {
+   user: { name: 'anonymous' },
+   applicationName: 'my-app',
+   featureName: 'my-feature',
+   }
+   */
+  addFeature: (featureEvent, next) => {
     audit.addFeatureAudit(
       featureEvent.user,
       featureEvent.applicationName,
@@ -20,13 +18,13 @@ module.exports = {
       'Feature Created', next);
   },
   /*
-  {
-    user: { name: 'anonymous' },
-    applicationName: 'my-app',
-    featureName: 'my-feature',
-  }
-  */
-  deleteFeature: function (featureEvent, next) {
+   {
+   user: { name: 'anonymous' },
+   applicationName: 'my-app',
+   featureName: 'my-feature',
+   }
+   */
+  deleteFeature: (featureEvent, next) => {
     audit.addFeatureAudit(
       featureEvent.user,
       featureEvent.applicationName,
@@ -36,15 +34,15 @@ module.exports = {
       'Deleted', next);
   },
   /*
-  {
-    user: { name: 'anonymous' },
-    applicationName: 'my-app',
-    featureName: 'my-feature',
-    toggleName: 'my-toggle',
-    value: false
-  }
-  */
-  addFeatureToggle: function (toggleEvent, next) {
+   {
+   user: { name: 'anonymous' },
+   applicationName: 'my-app',
+   featureName: 'my-feature',
+   toggleName: 'my-toggle',
+   value: false
+   }
+   */
+  addFeatureToggle: (toggleEvent, next) => {
     audit.addFeatureAudit(
       toggleEvent.user,
       toggleEvent.applicationName,
@@ -54,15 +52,15 @@ module.exports = {
       'Toggle Created', next);
   },
   /*
-  {
-    user: { name: 'anonymous' },
-    applicationName: 'my-app',
-    featureName: 'my-feature',
-    toggleName: 'my-toggle',
-    value: false
-  }
-  */
-  updateFeatureToggle: function (updateEvent, next) {
+   {
+   user: { name: 'anonymous' },
+   applicationName: 'my-app',
+   featureName: 'my-feature',
+   toggleName: 'my-toggle',
+   value: false
+   }
+   */
+  updateFeatureToggle: (updateEvent, next) => {
     audit.addFeatureAudit(
       updateEvent.user,
       updateEvent.applicationName,
@@ -72,14 +70,14 @@ module.exports = {
       'Updated', next);
   },
   /*
-  {
-    user: { name: 'anonymous' },
-    applicationName: 'my-app',
-    featureName: 'my-feature',
-    toggleName: 'my-toggle'
-  }
-  */
-  deleteFeatureToggle: function (deleteEvent, next) {
+   {
+   user: { name: 'anonymous' },
+   applicationName: 'my-app',
+   featureName: 'my-feature',
+   toggleName: 'my-toggle'
+   }
+   */
+  deleteFeatureToggle: (deleteEvent, next) => {
     audit.addFeatureAudit(
       deleteEvent.user,
       deleteEvent.applicationName,
@@ -87,5 +85,5 @@ module.exports = {
       deleteEvent.toggleName,
       null,
       'Deleted', next);
-  }
+  },
 };
