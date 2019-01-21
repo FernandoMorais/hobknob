@@ -1,6 +1,6 @@
 const session = require('express-session');
 
-module.exports.init = (config, express) => {
+module.exports.init = (config, app) => {
   let sessionMiddleware;
   let useConnectEtcdSession;
   let useConnectRedisSession;
@@ -36,7 +36,19 @@ module.exports.init = (config, express) => {
       secret: 'hobknob',
     });
   } else {
-    sessionMiddleware = express.session();
+    const sess = {
+      secret: 'hobknob',
+      resave: false,
+      saveUninitialized: true,
+      cookie: {},
+    };
+
+    if (app.get('env') === 'production') {
+      app.set('trust proxy', 1); // trust first proxy
+      sess.cookie.secure = true; // serve secure cookies
+    }
+
+    sessionMiddleware = session(sess);
   }
 
   return function (req, res, next) {

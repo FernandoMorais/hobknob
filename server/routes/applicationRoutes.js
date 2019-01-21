@@ -13,7 +13,7 @@ const addApplication = (req, res) => {
   application.addApplication(req.body.name, req,
     (err) => {
       if (err) throw err;
-      res.send(201);
+      res.sendStatus(201);
     });
 };
 
@@ -21,7 +21,7 @@ const deleteApplication = (req, res) => {
   application.deleteApplication(req.params.applicationName, req,
     (err) => {
       if (err) throw err;
-      res.send(200);
+      res.sendStatus(200);
     });
 };
 
@@ -44,7 +44,7 @@ const saveApplicationMetaData = (req, res) => {
   application.saveApplicationMetaData(applicationName, metaDataKey, metaDataValue,
     (err) => {
       if (err) throw err;
-      res.send(200);
+      res.sendStatus(200);
     });
 };
 

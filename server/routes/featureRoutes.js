@@ -8,7 +8,7 @@ const getFeatureCategories = (req, res) => {
       if (application) {
         res.send(application);
       } else {
-        res.send(404);
+        res.sendStatus(404);
       }
     });
 };
@@ -21,7 +21,7 @@ const getFeature = (req, res) => {
     if (foundFeature) {
       res.send(foundFeature);
     } else {
-      res.send(404);
+      res.sendStatus(404);
     }
   });
 };
@@ -32,7 +32,7 @@ const addFeature = (req, res) => {
 
   feature.addFeature(applicationName, featureName, featureDescription, categoryId, req, (err) => {
     if (err) throw err;
-    res.send(201);
+    res.sendStatus(201);
   });
 };
 
@@ -42,7 +42,7 @@ const updateFeatureDescription = (req, res) => {
 
   feature.updateFeatureDescription(applicationName, featureName, newFeatureDescription, req, (err) => {
     if (err) throw err;
-    res.send(200);
+    res.sendStatus(200);
   });
 };
 
@@ -52,7 +52,7 @@ const updateFeatureToggle = (req, res) => {
 
   feature.updateFeatureToggle(applicationName, featureName, value, req, (err) => {
     if (err) throw err;
-    res.send(200);
+    res.sendStatus(200);
   });
 };
 
@@ -62,7 +62,7 @@ const addFeatureToggle = (req, res) => {
 
   feature.addFeatureToggle(applicationName, featureName, toggleName, req, (err) => {
     if (err) throw err;
-    res.send(200);
+    res.sendStatus(200);
   });
 };
 
@@ -72,16 +72,19 @@ const updateFeatureMultiToggle = function (req, res) {
 
   feature.updateFeatureMultiToggle(applicationName, featureName, toggleName, value, req, (err) => {
     if (err) throw err;
-    res.send(200);
+    res.sendStatus(200);
   });
 };
 
 const deleteFeature = (req, res) => {
   const { applicationName, featureName } = req.params;
 
+  // eslint-disable-next-line no-console
+  console.log({ applicationName, featureName });
+
   feature.deleteFeature(applicationName, featureName, req, (err) => {
     if (err) throw err;
-    res.send(200);
+    res.sendStatus(200);
   });
 };
 

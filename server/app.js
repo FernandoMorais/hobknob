@@ -1,5 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const favicon = require('serve-favicon');
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 const path = require('path');
 const config = require('config');
 const _ = require('underscore');
@@ -15,31 +18,27 @@ const acl = require('./domain/acl');
 const passport = require('./auth').init(config);
 
 const app = express();
+app.use(favicon(path.join(__dirname, '/../public/favicon.ico')));
 
 app.set('views', path.join(__dirname, '/../client/views'));
 app.set('view engine', 'pug');
 app.set('port', process.env.PORT || 3006);
 
-app.use(express.json()); // to support JSON-encoded bodies
-app.use(express.urlencoded()); // to support URL-encoded bodies
-app.use(express.favicon());
-
 if (config.loggingMiddleware && config.loggingMiddleware.path) {
-  // eslint-disable-next-line import/no-dynamic-require,global-require
+  // eslint-disable-next-line global-require, import/no-dynamic-require
   app.use(require(config.loggingMiddleware.path)(config.loggingMiddleware.settings));
 } else {
-  app.use(express.logger('dev'));
+  app.use(morgan('dev'));
 }
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(express.cookieParser('featuretoggle'));
-app.use(require('./session').init(config, express));
+app.use(cookieParser('featuretoggle'));
+app.use(require('./session').init(config, app));
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(app.router);
 
 app.use(express.static(path.join(__dirname, '/../public')));
 app.use('/bower_components', express.static(path.join(__dirname, '/../public/bower_components')));
@@ -64,7 +63,7 @@ const ensureAuthenticated = function (req, res, next) {
   if (isAuthenticated(req)) {
     return next();
   }
-  return res.send(403);
+  return res.sendStatus(403);
 };
 
 const authoriseUserForThisApplication = function (req, res, next) {
@@ -78,7 +77,7 @@ const authoriseUserForThisApplication = function (req, res, next) {
 
   acl.assert(userEmail, applicationName, (err, isAuthorised) => {
     if (err || !isAuthorised) {
-      res.send(403);
+      res.sendStatus(403);
     } else {
       next();
     }
@@ -103,11 +102,7 @@ app.get('/partials/:name', dashboardRoutes.partials);
 app.get('/logout', authenticateRoutes.logout);
 
 app.get('/auth/google',
-  passport.authenticate('google', passportGoogleAuthenticateParams()),
-  // eslint-disable-next-line no-unused-vars
-  (req, res) => {
-    // The request will be redirected to Google for authentication
-  });
+  passport.authenticate('google', passportGoogleAuthenticateParams()));
 
 app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/oops', failureFlash: true }),
@@ -126,7 +121,7 @@ app.get('/auth/azureadoauth2/callback',
   });
 
 if (config.plugin && config.plugin.path) {
-  // eslint-disable-next-line global-require,import/no-dynamic-require
+  // eslint-disable-next-line global-require, import/no-dynamic-require
   require(config.plugin.path)(app);
 }
 
