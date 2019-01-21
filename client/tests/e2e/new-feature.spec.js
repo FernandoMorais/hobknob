@@ -135,7 +135,7 @@ _.each([0, 1], function (categoryId) {
     });
 
     it("should not allow a feature to be created with the same name as one that already exists in another category", function () {
-      addNewFeature("DifferentCategoryTestFeature");
+      addNewFeature("DifferentCategoryTestFeature", "TestDescription");
 
       assertAddFeatureFormIsDisplayed(true);
       expect(element.all(by.repeater('feature in category.features')).count()).toBe(1);
@@ -151,7 +151,7 @@ _.each([0, 1], function (categoryId) {
 
     if (!process.env.TRAVIS_BUILD_NUMBER) {
       it("should not accept a spaces in a feature name", function () {
-        addNewFeature("Space in this name");
+        addNewFeature("Space in this name", "TestDescription");
         assertAddFeatureFormIsDisplayed(true);
         expect(element.all(by.repeater('feature in category.features')).count()).toBe(1);
         expect(element(by.binding("alert.message")).getText()).toBe("Feature name must be alphanumeric with no spaces");
@@ -160,7 +160,7 @@ _.each([0, 1], function (categoryId) {
 
     _.each(["Slash/es", "Back\\SlashesToo", "Weird@Chars"], function (invalidFeatureName) {
       it("should not accept a invalid feature name: " + invalidFeatureName, function () {
-        addNewFeature(invalidFeatureName);
+        addNewFeature(invalidFeatureName, "TestDescription");
         assertAddFeatureFormIsDisplayed(true);
         expect(element.all(by.repeater('feature in category.features')).count()).toBe(1);
         expect(element(by.binding("alert.message")).getText()).toBe("Feature name must be alphanumeric with no spaces");
