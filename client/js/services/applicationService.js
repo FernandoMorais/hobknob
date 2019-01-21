@@ -26,6 +26,7 @@ angular.module('featureToggleFrontend').factory('applicationService', ['$http', 
   exports.deleteApplication = (name, cb) => {
     const path = `/api/applications/${name}`;
     $http.delete(path)
+      // eslint-disable-next-line no-unused-vars
       .success((data, status) => {
         cb();
       })
@@ -37,6 +38,7 @@ angular.module('featureToggleFrontend').factory('applicationService', ['$http', 
   exports.getApplicationMetaData = (applicationName, cb) => {
     const path = `/api/applications/${applicationName}/_meta`;
     $http.get(path)
+      // eslint-disable-next-line no-unused-vars
       .success((data, status) => {
         cb(null, data);
       })

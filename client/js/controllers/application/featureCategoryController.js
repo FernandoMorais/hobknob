@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 featureToggleFrontend.controller('FeatureCategoryController', ['$scope', '$timeout', 'toggleService', 'focus', 'ENV', ($scope, $timeout, toggleService, focus, ENV) => {
   $scope.adding = false;
   $scope.newFeatureName = '';

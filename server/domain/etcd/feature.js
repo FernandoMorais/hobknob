@@ -1,10 +1,9 @@
-
-
-const etcd = require('./etcd');
 const _ = require('underscore');
 const config = require('config');
-const category = require('../category');
 const s = require('string');
+
+const etcd = require('./etcd');
+const category = require('../category');
 const hooks = require('../../src/hooks/featureHooks');
 
 const etcdBaseUrl = `http://${config.etcdHost}:${config.etcdPort}/v2/keys/`;
@@ -139,6 +138,7 @@ module.exports.getFeatureCategories = function (applicationName, cb) {
 
     etcd.client.get(`v1/metadata/${applicationName}/descriptions`, (descriptionError, descriptionResult) => {
       if (descriptionError) {
+        // eslint-disable-next-line no-console
         console.log(descriptionError);
       }
 
@@ -200,6 +200,7 @@ const getFeatureDescription = function (applicationName, feature, cb) {
 
   etcd.client.get(descriptionPath, (error, result) => {
     if (error) {
+      // eslint-disable-next-line no-console
       console.log(error);
     }
 
@@ -238,6 +239,7 @@ const addFeatureDescription = function (applicationName, featureName, featureDes
 
   etcd.client.set(descriptionPath, featureDescription, (err) => {
     if (err) {
+      // eslint-disable-next-line no-console
       console.log(err); // todo: better logging
     }
     if (cb) cb();

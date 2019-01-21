@@ -8,16 +8,19 @@ module.exports.init = (config, express) => {
   try {
     useConnectEtcdSession = require.resolve('connect-etcd');
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.log(e);
   }
 
   try {
     useConnectRedisSession = require.resolve('connect-redis');
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.log(e);
   }
 
   if (useConnectEtcdSession) {
+    // eslint-disable-next-line global-require,import/no-unresolved
     const EtcdStore = require('connect-etcd')(session);
 
     sessionMiddleware = session({
@@ -25,6 +28,7 @@ module.exports.init = (config, express) => {
       secret: 'hobknob',
     });
   } else if (useConnectRedisSession) {
+    // eslint-disable-next-line global-require,import/no-unresolved
     const RedisStore = require('connect-redis')(session);
 
     sessionMiddleware = session({

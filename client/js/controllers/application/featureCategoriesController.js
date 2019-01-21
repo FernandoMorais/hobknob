@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 featureToggleFrontend.controller('FeatureCategoriesController', ['$scope', '$timeout', 'toggleService', 'focus', 'ENV', 'Category', ($scope, $timeout, toggleService, focus, ENV, Category) => {
   $scope.isFeatureUnique = (featureName) => {
     const existingFeatureNames = _
@@ -11,6 +12,7 @@ featureToggleFrontend.controller('FeatureCategoriesController', ['$scope', '$tim
   $scope.addFakeFeature = (featureName, featureDescription, categoryId) => {
     const category = _.find($scope.categories, categoryIter => categoryIter.id === categoryId);
 
+    // eslint-disable-next-line no-unused-vars
     const toggleValues = new Category(category.id).isSimple() ? [false] : _.map(category.columns, column => null);
 
     category.features.push({

@@ -14,10 +14,12 @@ function getProfilePhotoFromAD(token, callback) {
     encoding: null,
   };
   let r;
+  // eslint-disable-next-line no-unused-vars
   const req = request(options, (error, response, body) => {
     if (!error) {
       if (response.statusCode === 200) {
         try {
+          // eslint-disable-next-line no-buffer-constructor
           r = new Buffer(body).toString('base64');
 
           // Call callback with no error, and result of request
@@ -34,6 +36,7 @@ function getProfilePhotoFromAD(token, callback) {
         return callback(errorData);
       }
     } else {
+      // eslint-disable-next-line no-console
       console.log(`Error: ${error}`);
       return callback(error);
     }
@@ -89,6 +92,7 @@ module.exports.init = (config) => {
           if (!error) {
             profileData.picture = data;
           } else {
+            // eslint-disable-next-line no-console
             console.log(error);
           }
           profile._json = profileData; // eslint-disable-line no-underscore-dangle

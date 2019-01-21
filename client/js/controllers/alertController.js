@@ -15,6 +15,7 @@ featureToggleFrontend.controller('AlertController', ['$scope', '$rootScope', ($s
     };
 
     if (err) {
+      // eslint-disable-next-line no-console
       console.log(err);
     }
   });

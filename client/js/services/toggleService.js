@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 angular.module('featureToggleFrontend').factory('toggleService', ['ENV', '$http', 'CurrentUser', 'auditService', function (ENV, $http, CurrentUser, auditService) {
   const exports = {};
 

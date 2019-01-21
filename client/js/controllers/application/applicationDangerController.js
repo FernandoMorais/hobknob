@@ -2,7 +2,7 @@ featureToggleFrontend.controller('ApplicationDangerController', ['$scope', '$rou
   $scope.confirm = false;
 
   $scope.deleteApplication = () => {
-    const applicationName = $scope.applicationName;
+    const { applicationName } = $scope;
 
     if (!$scope.confirm) {
       $scope.confirm = true;

@@ -5,7 +5,8 @@ const getApplications = (req, res) => {
     (err, applications) => {
       if (err) throw err;
       res.send(applications);
-    });
+    }
+  );
 };
 
 const addApplication = (req, res) => {
@@ -29,7 +30,7 @@ const deleteApplicationMetaData = (req, res, next) => {
 };
 
 const getApplicationMetaData = (req, res) => {
-  const applicationName = req.params.applicationName;
+  const { applicationName } = req.params;
   application.getApplicationMetaData(applicationName,
     (err, metaData) => {
       if (err) throw err;
@@ -38,8 +39,7 @@ const getApplicationMetaData = (req, res) => {
 };
 
 const saveApplicationMetaData = (req, res) => {
-  const applicationName = req.params.applicationName;
-  const metaDataKey = req.params.metaDataKey;
+  const { applicationName, metaDataKey } = req.params;
   const metaDataValue = req.body.value;
   application.saveApplicationMetaData(applicationName, metaDataKey, metaDataValue,
     (err) => {

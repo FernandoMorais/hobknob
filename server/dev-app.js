@@ -9,6 +9,7 @@ const child = new (forever.Monitor)('server/app.js', {
 });
 
 child.on('exit', () => {
+  // eslint-disable-next-line no-console
   console.log('app.js has exited');
 });
 

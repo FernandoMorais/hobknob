@@ -25,24 +25,25 @@ module.exports = function (grunt) {
         space: '  ',
         wrap: '{%= __ngModule %}',
         constants: {
+          // eslint-disable-next-line global-require
           ENV: require('./config/default.json')
         }
       },
       copyConfigToClient: {}
     },
 
-        protractor: {
-            options: {
-                configFile: 'client/tests/e2e/protractor.conf.js',
-                keepAlive: true,
-                noColor: false,
-                args: {
-                    seleniumServerJar: 'node_modules/protractor/node_modules/webdriver-manager/selenium/selenium-server-standalone-3.141.59.jar',
-                    chromeDriver: 'node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_2.45'
-                }
-            },
-            run: {}
-        },
+    protractor: {
+      options: {
+        configFile: 'client/tests/e2e/protractor.conf.js',
+        keepAlive: true,
+        noColor: false,
+        args: {
+          seleniumServerJar: 'node_modules/protractor/node_modules/webdriver-manager/selenium/selenium-server-standalone-3.141.59.jar',
+          chromeDriver: 'node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_2.45'
+        }
+      },
+      run: {}
+    },
 
     eslint: {
       target: [
@@ -64,6 +65,7 @@ module.exports = function (grunt) {
   });
 
   // Automatically load in all Grunt npm tasks
+  // eslint-disable-next-line global-require
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
   grunt.registerTask('default', 'build');

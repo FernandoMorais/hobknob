@@ -15,7 +15,8 @@ module.exports = {
       featureEvent.featureName,
       null,
       null,
-      'Feature Created', next);
+      'Feature Created', next
+    );
   },
   /*
    {
@@ -31,7 +32,8 @@ module.exports = {
       featureEvent.featureName,
       null,
       null,
-      'Deleted', next);
+      'Deleted', next
+    );
   },
   /*
    {
@@ -49,7 +51,8 @@ module.exports = {
       toggleEvent.featureName,
       toggleEvent.toggleName,
       toggleEvent.value,
-      'Toggle Created', next);
+      'Toggle Created', next
+    );
   },
   /*
    {
@@ -67,7 +70,8 @@ module.exports = {
       updateEvent.featureName,
       updateEvent.toggleName,
       updateEvent.value,
-      'Updated', next);
+      'Updated', next
+    );
   },
   /*
    {
@@ -84,6 +88,7 @@ module.exports = {
       deleteEvent.featureName,
       deleteEvent.toggleName,
       null,
-      'Deleted', next);
+      'Deleted', next
+    );
   },
 };

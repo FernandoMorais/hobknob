@@ -1,5 +1,6 @@
-const etcd = require('./etcd');
 const _ = require('underscore');
+
+const etcd = require('./etcd');
 
 const EtcdAclStore = function () {};
 

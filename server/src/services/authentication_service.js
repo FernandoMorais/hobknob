@@ -11,6 +11,7 @@ exports.initLdap = (ip) => {
 exports.login = (username, password, callback) => {
   client.bind(username, password, (err) => {
     if (err) {
+      // eslint-disable-next-line no-console
       console.log(`error in auth: ${err}`);
       callback(false);
       return;

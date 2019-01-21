@@ -1,6 +1,8 @@
 const _ = require('underscore');
 const config = require('config');
+// eslint-disable-next-line no-unused-vars
 const acl = require('./acl');
+// eslint-disable-next-line no-unused-vars
 const audit = require('./audit');
 
 const getCategory = (id, name, description, columns, features) => ({
@@ -15,7 +17,7 @@ const simpleCategoryId = 0;
 module.exports.simpleCategoryId = simpleCategoryId;
 
 const getSimpleCategory = (name, description) => getCategory(0, name || 'Simple Features',
-    description || 'Used for simple on/off feature toggles', ['']);
+  description || 'Used for simple on/off feature toggles', ['']);
 
 const isSimpleCategory = categoryId => categoryId === simpleCategoryId;
 

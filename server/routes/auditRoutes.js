@@ -2,8 +2,7 @@ const audit = require('../domain/audit');
 
 module.exports = {
   getFeatureAuditTrail: (req, res) => {
-    const applicationName = req.params.applicationName;
-    const featureName = req.params.featureName;
+    const { applicationName, featureName } = req.params;
 
     audit.getFeatureAuditTrail(applicationName, featureName, (err, auditTrail) => {
       if (err) {
@@ -18,7 +17,7 @@ module.exports = {
   },
 
   getApplicationAuditTrail(req, res) {
-    const applicationName = req.params.applicationName;
+    const { applicationName } = req.params;
 
     audit.getApplicationAuditTrail(applicationName, (err, auditTrail) => {
       if (err) {

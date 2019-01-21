@@ -4,4 +4,3 @@ $(document).ready(() => {
     $(this).removeData('bs.modal');
   });
 });
-

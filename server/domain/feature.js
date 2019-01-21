@@ -5,6 +5,7 @@ const config = require('config');
 const feature = () => {
   switch (config.dataSource.toLowerCase()) {
     case 'etcd':
+      // eslint-disable-next-line global-require
       return require('./etcd/feature');
 
     default:
@@ -30,7 +31,7 @@ module.exports = {
   },
 
   updateFeatureDescription: (applicationName, featureName, value, req, cb) => {
-    feature().updateFeatureDescription(applicationName, featureName, newFeatureDescription, req, cb);
+    feature().updateFeatureDescription(applicationName, featureName, value, req, cb);
   },
 
   addFeatureToggle: (applicationName, featureName, toggleName, req, cb) => {

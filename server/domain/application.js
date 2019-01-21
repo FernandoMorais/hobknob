@@ -5,6 +5,7 @@ const config = require('config');
 const application = () => {
   switch (config.dataSource.toLowerCase()) {
     case 'etcd':
+      // eslint-disable-next-line global-require
       return require('./etcd/application');
 
     default:

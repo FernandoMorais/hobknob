@@ -3,6 +3,7 @@ const config = require('config');
 const audit = function () {
   switch (config.dataSource.toLowerCase()) {
     case 'etcd':
+      // eslint-disable-next-line global-require
       return require('./etcd/audit');
 
     default:

@@ -1,8 +1,8 @@
-
+const _ = require('underscore');
+// eslint-disable-next-line no-unused-vars
+const config = require('config');
 
 const etcd = require('./etcd');
-const _ = require('underscore');
-const config = require('config');
 
 module.exports = {
   getApplicationAuditTrail(applicationName, callback) {
@@ -54,6 +54,7 @@ module.exports = {
         return;
       }
 
+      // eslint-disable-next-line no-unused-vars
       const auditNotification = {
         applicationName,
         audit
@@ -80,6 +81,7 @@ module.exports = {
         return;
       }
 
+      // eslint-disable-next-line no-unused-vars
       const auditNotification = {
         applicationName,
         featureName,

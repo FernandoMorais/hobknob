@@ -4,6 +4,7 @@ featureToggleFrontend.controller('TogglesController', ['$scope', '$timeout', 'to
   $scope.setAddingToggleState = (state) => {
     $scope.adding = state;
     if (state) {
+      // eslint-disable-next-line prefer-destructuring
       $scope.newToggleName = $scope.toggleSuggestions[0];
       focus('newToggleName');
     }
@@ -56,9 +57,8 @@ featureToggleFrontend.controller('TogglesController', ['$scope', '$timeout', 'to
   };
 
   $scope.addToggle = () => {
-    const applicationName = $scope.applicationName;
-    const featureName = $scope.featureName;
-    const toggleName = $scope.newToggleName.trim();
+    const { applicationName, featureName, newToggleName } = $scope;
+    const toggleName = newToggleName.trim();
 
     const validationError = validateNewToggle(toggleName);
     if (validationError) {
@@ -88,6 +88,7 @@ featureToggleFrontend.controller('TogglesController', ['$scope', '$timeout', 'to
     });
   };
 
+  // eslint-disable-next-line wrap-iife
   (function loadFeatureToggles() {
     $scope.toggles = [];
     $scope.description = '';

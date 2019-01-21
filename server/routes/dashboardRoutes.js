@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 const config = require('config');
 
 exports.dashboard = (req, res) => {
@@ -10,6 +11,6 @@ exports.dashboard = (req, res) => {
 };
 
 exports.partials = (req, res) => {
-  const name = req.params.name;
+  const { name } = req.params;
   res.render(`partials/${name}`);
 };

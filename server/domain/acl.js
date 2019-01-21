@@ -3,6 +3,7 @@ const config = require('config');
 const acl = () => {
   switch (config.dataSource.toLowerCase()) {
     case 'etcd':
+      // eslint-disable-next-line global-require
       return require('./etcd/acl');
 
     default:

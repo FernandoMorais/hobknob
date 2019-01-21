@@ -1,8 +1,7 @@
-
-
-const etcd = require('./etcd');
 const _ = require('underscore');
 const config = require('config');
+
+const etcd = require('./etcd');
 const acl = require('../acl');
 const audit = require('../audit');
 
@@ -38,6 +37,7 @@ module.exports = {
 
       audit.addApplicationAudit(getUserDetails(req), applicationName, 'Created', () => {
         if (err) {
+          // eslint-disable-next-line no-console
           console.log(err); // todo: better logging
         }
       });
@@ -69,6 +69,7 @@ module.exports = {
 
       audit.addApplicationAudit(getUserDetails(req), applicationName, 'Deleted', () => {
         if (err) {
+          // eslint-disable-next-line no-console
           console.log(err);
         }
       });
@@ -107,6 +108,7 @@ module.exports = {
   },
 
   deleteApplicationMetaData(applicationName, cb) {
+    // eslint-disable-next-line no-unused-vars
     etcd.client.delete(`v1/metadata/${applicationName}`, { recursive: true }, (err, result) => {
       if (err) {
         if (err.errorCode === 100) { // key not found

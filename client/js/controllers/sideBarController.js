@@ -11,7 +11,8 @@ featureToggleFrontend.controller('SideBarController', ['$scope', 'applicationSer
       },
       (data) => {
         $scope.$emit('error', 'Failed to load applications', new Error(data));
-      });
+      },
+    );
   };
 
   $scope.setAddingApplicationState = (state) => {

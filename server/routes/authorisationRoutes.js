@@ -1,9 +1,10 @@
-const acl = require('../domain/acl');
 const validator = require('validator');
+
+const acl = require('../domain/acl');
 
 module.exports = {
   getUsers: (req, res) => {
-    const applicationName = req.params.applicationName;
+    const { applicationName } = req.params;
     acl.getAllUsers(applicationName, (err, users) => {
       if (err) throw err;
       res.send(users);
@@ -11,8 +12,8 @@ module.exports = {
   },
 
   grant: (req, res) => {
-    const applicationName = req.params.applicationName;
-    const userEmail = req.body.userEmail;
+    const { applicationName } = req.params;
+    const { userEmail } = req.body;
     if (!validator.isEmail(userEmail)) {
       res.status(400).send('Invalid email');
       return;
@@ -24,8 +25,7 @@ module.exports = {
   },
 
   revoke: (req, res) => {
-    const applicationName = req.params.applicationName;
-    const userEmail = req.params.userEmail;
+    const { applicationName, userEmail } = req.params;
     acl.revoke(userEmail, applicationName, (err) => {
       if (err) throw err;
       res.send(200);
@@ -33,8 +33,7 @@ module.exports = {
   },
 
   assert: (req, res) => {
-    const applicationName = req.params.applicationName;
-    const userEmail = req.params.userEmail;
+    const { applicationName, userEmail } = req.params;
     acl.assert(userEmail, applicationName, (err, value) => {
       res.send({
         authorised: value,

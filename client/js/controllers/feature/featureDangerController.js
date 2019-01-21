@@ -2,8 +2,7 @@ featureToggleFrontend.controller('FeaatureDangerController', ['$scope', 'toggleS
   $scope.confirm = false;
 
   $scope.deleteFeature = () => {
-    const applicationName = $scope.applicationName;
-    const featureName = $scope.featureName;
+    const { applicationName, featureName } = $scope;
 
     if (!$scope.confirm) {
       $scope.confirm = true;

@@ -14,8 +14,7 @@ const getFeatureCategories = (req, res) => {
 };
 
 const getFeature = (req, res) => {
-  const applicationName = req.params.applicationName;
-  const featureName = req.params.featureName;
+  const { applicationName, featureName } = req.params;
 
   feature.getFeature(applicationName, featureName, (err, foundFeature) => {
     if (err) throw err;
@@ -28,10 +27,8 @@ const getFeature = (req, res) => {
 };
 
 const addFeature = (req, res) => {
-  const applicationName = req.params.applicationName;
-  const featureName = req.body.featureName;
-  const featureDescription = req.body.featureDescription;
-  const categoryId = req.body.categoryId;
+  const { applicationName } = req.params;
+  const { featureName, featureDescription, categoryId } = req.body;
 
   feature.addFeature(applicationName, featureName, featureDescription, categoryId, req, (err) => {
     if (err) throw err;
@@ -40,9 +37,8 @@ const addFeature = (req, res) => {
 };
 
 const updateFeatureDescription = (req, res) => {
-  const applicationName = req.params.applicationName;
-  const featureName = req.params.featureName;
-  const newFeatureDescription = req.body.newFeatureDescription;
+  const { applicationName, featureName } = req.params;
+  const { newFeatureDescription } = req.body;
 
   feature.updateFeatureDescription(applicationName, featureName, newFeatureDescription, req, (err) => {
     if (err) throw err;
@@ -51,9 +47,8 @@ const updateFeatureDescription = (req, res) => {
 };
 
 const updateFeatureToggle = (req, res) => {
-  const applicationName = req.params.applicationName;
-  const featureName = req.params.featureName;
-  const value = req.body.value;
+  const { applicationName, featureName } = req.params;
+  const { value } = req.body;
 
   feature.updateFeatureToggle(applicationName, featureName, value, req, (err) => {
     if (err) throw err;
@@ -62,9 +57,8 @@ const updateFeatureToggle = (req, res) => {
 };
 
 const addFeatureToggle = (req, res) => {
-  const applicationName = req.params.applicationName;
-  const featureName = req.params.featureName;
-  const toggleName = req.body.toggleName;
+  const { applicationName, featureName } = req.params;
+  const { toggleName } = req.body;
 
   feature.addFeatureToggle(applicationName, featureName, toggleName, req, (err) => {
     if (err) throw err;
@@ -73,10 +67,8 @@ const addFeatureToggle = (req, res) => {
 };
 
 const updateFeatureMultiToggle = function (req, res) {
-  const applicationName = req.params.applicationName;
-  const featureName = req.params.featureName;
-  const toggleName = req.params.toggleName;
-  const value = req.body.value;
+  const { applicationName, featureName, toggleName } = req.params;
+  const { value } = req.body;
 
   feature.updateFeatureMultiToggle(applicationName, featureName, toggleName, value, req, (err) => {
     if (err) throw err;
@@ -85,8 +77,7 @@ const updateFeatureMultiToggle = function (req, res) {
 };
 
 const deleteFeature = (req, res) => {
-  const applicationName = req.params.applicationName;
-  const featureName = req.params.featureName;
+  const { applicationName, featureName } = req.params;
 
   feature.deleteFeature(applicationName, featureName, req, (err) => {
     if (err) throw err;

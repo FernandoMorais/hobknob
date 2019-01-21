@@ -1,5 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
+const config = require('config');
+const _ = require('underscore');
+
 const dashboardRoutes = require('./routes/dashboardRoutes');
 const loadBalancerRoutes = require('./routes/loadbalancerRoutes');
 const authenticateRoutes = require('./routes/authenticateRoutes');
@@ -7,10 +11,7 @@ const authorisationRoutes = require('./routes/authorisationRoutes');
 const auditRoutes = require('./routes/auditRoutes');
 const applicationRoutes = require('./routes/applicationRoutes');
 const featureRoutes = require('./routes/featureRoutes');
-const path = require('path');
 const acl = require('./domain/acl');
-const config = require('config');
-const _ = require('underscore');
 const passport = require('./auth').init(config);
 
 const app = express();
@@ -19,11 +20,12 @@ app.set('views', path.join(__dirname, '/../client/views'));
 app.set('view engine', 'pug');
 app.set('port', process.env.PORT || 3006);
 
-app.use(express.json());       // to support JSON-encoded bodies
+app.use(express.json()); // to support JSON-encoded bodies
 app.use(express.urlencoded()); // to support URL-encoded bodies
 app.use(express.favicon());
 
 if (config.loggingMiddleware && config.loggingMiddleware.path) {
+  // eslint-disable-next-line import/no-dynamic-require,global-require
   app.use(require(config.loggingMiddleware.path)(config.loggingMiddleware.settings));
 } else {
   app.use(express.logger('dev'));
@@ -71,7 +73,7 @@ const authoriseUserForThisApplication = function (req, res, next) {
     return;
   }
 
-  const applicationName = req.params.applicationName;
+  const { applicationName } = req.params;
   const userEmail = req.user._json.email; // eslint-disable-line no-underscore-dangle
 
   acl.assert(userEmail, applicationName, (err, isAuthorised) => {
@@ -102,21 +104,19 @@ app.get('/logout', authenticateRoutes.logout);
 
 app.get('/auth/google',
   passport.authenticate('google', passportGoogleAuthenticateParams()),
+  // eslint-disable-next-line no-unused-vars
   (req, res) => {
     // The request will be redirected to Google for authentication
-  }
-);
+  });
 
 app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/oops', failureFlash: true }),
   (req, res) => {
     res.redirect('/#!/');
-  }
-);
+  });
 
 app.get('/auth/azureadoauth2',
-  passport.authenticate('azure')
-);
+  passport.authenticate('azure'));
 
 app.get('/auth/azureadoauth2/callback',
   passport.authenticate('azure', { failureRedirect: '/oops', failureFlash: true }),
@@ -126,6 +126,7 @@ app.get('/auth/azureadoauth2/callback',
   });
 
 if (config.plugin && config.plugin.path) {
+  // eslint-disable-next-line global-require,import/no-dynamic-require
   require(config.plugin.path)(app);
 }
 
@@ -140,6 +141,7 @@ featureRoutes.registerRoutes(app, ensureAuthenticated, authoriseUserForThisAppli
 app.get('/api/audit/feature/:applicationName/:featureName', auditRoutes.getFeatureAuditTrail);
 app.get('/api/audit/application/:applicationName', auditRoutes.getApplicationAuditTrail);
 
+// eslint-disable-next-line no-console
 console.log(`Starting up feature toggle dashboard on port ${app.get('port')}`);
 
 app.listen(app.get('port'));
