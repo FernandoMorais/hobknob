@@ -38,7 +38,6 @@
     "pug": "^2.0.0-beta4",
     "request": "~2.88.0",
     "serve-favicon": "^2.5.0",
-    "string": "^3.3.1",
     "underscore": "^1.8.3",
     "validator": "^10.10.0"
   },

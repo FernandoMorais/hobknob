@@ -1,15 +1,13 @@
+const etcd = require('./etcd');
 const _ = require('underscore');
 const config = require('config');
-const s = require('string');
-
-const etcd = require('./etcd');
 const category = require('../category');
 const hooks = require('../../src/hooks/featureHooks');
 
 const etcdBaseUrl = `http://${config.etcdHost}:${config.etcdPort}/v2/keys/`;
 
 const isMetaNode = function (node) {
-  return s(node.key).endsWith('@meta');
+  return node.key ? node.key.endsWith('@meta') : false;
 };
 
 const getUserDetails = function (req) {
